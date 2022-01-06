@@ -64,20 +64,19 @@ export function toggleTeaStatus(object) {
 // should give back:
 //    [{ task: "Cooking", completed: true }, { task: "Walking", completed: true }]
 
-// PLAN
-// output: an array which will have the updated value of the item.completed at a specified index
-// spreading the array up to the index/element we want to change
-// then we are at the specified index
-// access this element
-// change the property
-
-// change the value of one of the objects of the property to be the opposite of what it was
 export function toggleListItemCompleted(array, index) {
-  return [...array.slice(0, index), ...array[index], completed];
-  const newArray = [...array];
-  let item = newArray[index];
-  console.log(item);
-  item.completed = !item.completed;
-  console.log(item);
-  return newArray;
+    let item = array.slice(index, index + 1)[0]; //slice the array to get a copy of the specific element we need, then access the first element before assigning it 
+    
+    const newObj = {
+        ...item, //we can only spread an object inside another object
+        completed: !array[index].completed //overwrite the property we need to change
+    }
+
+    const newList = [
+        ...array.slice(0, index), 
+        newObj,
+        ...array.slice(index + 1),
+    ];
+
+    return newList;
 }
