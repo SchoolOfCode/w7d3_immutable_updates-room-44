@@ -73,10 +73,23 @@ export function toggleListItemCompleted(array, index) {
     }
 
     const newList = [
-        ...array.slice(0, index), 
-        newObj,
-        ...array.slice(index + 1),
+        ...array.slice(0, index), //getting pre-index elements
+        newObj, //the specific element we have modified
+        ...array.slice(index + 1), //getting post-index elements
     ];
 
     return newList;
+
+    /* shortform that does the same thing as all of the above
+    
+    return [
+        ...array.slice(0, index), //getting pre-index elements
+        {
+            ...array.slice(index, index + 1)[0], //getting the specific element from the index, slice() returns an array so we immediately access the first/only element in the array with [0]
+            completed: !array[index].completed //then we overwrite the property we need to change
+        },
+        ...array.slice(index + 1) //getting post-index elements
+    ];
+
+    */
 }
